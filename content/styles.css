@@ -1,0 +1,755 @@
+/**
+ * All-in-One Swagger Helper - Content Styles
+ * Additional styles for Swagger UI enhancements and auto-login features
+ */
+
+/* Auto-login notification styles */
+.swagger-helper-notification {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 999999 !important;
+  padding: 12px 16px !important;
+  border-radius: 6px !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease !important;
+  max-width: 300px !important;
+  word-wrap: break-word !important;
+  pointer-events: auto !important;
+}
+
+.swagger-helper-notification.success {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.swagger-helper-notification.error {
+  background: #fecaca !important;
+  color: #991b1b !important;
+  border: 1px solid #fca5a5 !important;
+}
+
+.swagger-helper-notification.warning {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid #fde68a !important;
+}
+
+.swagger-helper-notification.info {
+  background: #dbeafe !important;
+  color: #1e40af !important;
+  border: 1px solid #93c5fd !important;
+}
+
+/* Enhanced authorization modal detection */
+.swagger-ui .auth-wrapper .auth-container {
+  position: relative;
+}
+
+/* Highlight injected token inputs */
+.swagger-ui input[data-swagger-helper-injected="true"] {
+  border: 2px solid #10b981 !important;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1) !important;
+  background-color: #f0fdfa !important;
+}
+
+/* Auto-injection indicator */
+.swagger-helper-injection-indicator {
+  position: absolute !important;
+  top: -8px !important;
+  right: -8px !important;
+  width: 16px !important;
+  height: 16px !important;
+  background: #10b981 !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 10px !important;
+  color: white !important;
+  z-index: 10 !important;
+}
+
+.swagger-helper-injection-indicator::after {
+  content: '✓' !important;
+}
+
+/* Enhanced copy buttons for API endpoints */
+.swagger-ui .copy-to-clipboard {
+  position: relative;
+}
+
+.swagger-helper-copy-curl {
+  background: #667eea !important;
+  color: white !important;
+  border: none !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  cursor: pointer !important;
+  margin-left: 8px !important;
+  transition: background 0.2s !important;
+}
+
+.swagger-helper-copy-curl:hover {
+  background: #5a67d8 !important;
+}
+
+/* Dark mode enhancements */
+.swagger-ui.swagger-helper-dark {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.swagger-ui.swagger-helper-dark img,
+.swagger-ui.swagger-helper-dark video,
+.swagger-ui.swagger-helper-dark iframe {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Auto-collapse sections */
+.swagger-ui .swagger-helper-collapsed .opblock-body {
+  display: none !important;
+}
+
+.swagger-ui .swagger-helper-collapsed .opblock-summary {
+  border-radius: 4px !important;
+}
+
+/* Quick access toolbar */
+.swagger-helper-toolbar {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 999998 !important;
+  display: flex !important;
+  gap: 8px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.swagger-helper-toolbar button {
+  background: #667eea !important;
+  color: white !important;
+  border: none !important;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+  white-space: nowrap !important;
+}
+
+.swagger-helper-toolbar button:hover {
+  background: #5a67d8 !important;
+  transform: translateY(-1px) !important;
+}
+
+.swagger-helper-toolbar button:disabled {
+  background: #9ca3af !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Loading spinner for injection process */
+.swagger-helper-loading {
+  display: inline-block !important;
+  width: 12px !important;
+  height: 12px !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-top: 2px solid #fff !important;
+  border-radius: 50% !important;
+  animation: swagger-helper-spin 1s linear infinite !important;
+  margin-right: 8px !important;
+}
+
+@keyframes swagger-helper-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Environment indicator */
+.swagger-helper-env-indicator {
+  position: fixed !important;
+  top: 10px !important;
+  left: 10px !important;
+  z-index: 999997 !important;
+  background: rgba(102, 126, 234, 0.9) !important;
+  color: white !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  backdrop-filter: blur(5px) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .swagger-helper-toolbar {
+    bottom: 10px !important;
+    right: 10px !important;
+    flex-direction: column !important;
+  }
+  
+  .swagger-helper-notification {
+    top: 10px !important;
+    right: 10px !important;
+    left: 10px !important;
+    max-width: none !important;
+  }
+}
+
+/* Animation for smooth transitions */
+.swagger-helper-fade-in {
+  animation: swagger-helper-fadeIn 0.3s ease !important;
+}
+
+.swagger-helper-fade-out {
+  animation: swagger-helper-fadeOut 0.3s ease !important;
+}
+
+@keyframes swagger-helper-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes swagger-helper-fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Ensure our styles don't conflict with Swagger UI */
+.swagger-ui * {
+  box-sizing: border-box;
+}
+
+/* Token Manager UI Elements */
+.token-manager-indicator {
+  position: fixed !important;
+  bottom: 80px !important;
+  right: 20px !important;
+  z-index: 999996 !important;
+  background: rgba(102, 126, 234, 0.9) !important;
+  color: white !important;
+  padding: 8px 12px !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  backdrop-filter: blur(5px) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  user-select: none !important;
+}
+
+.token-manager-indicator:hover {
+  background: rgba(102, 126, 234, 1) !important;
+  transform: translateY(-2px) !important;
+}
+
+.token-manager-indicator.no-token {
+  background: rgba(156, 163, 175, 0.9) !important;
+}
+
+.token-manager-indicator.no-token:hover {
+  background: rgba(156, 163, 175, 1) !important;
+}
+
+.token-indicator-content {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.token-icon {
+  font-size: 14px !important;
+}
+
+.token-role {
+  font-size: 11px !important;
+  max-width: 80px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Token Manager Notifications */
+.token-manager-notification {
+  position: fixed !important;
+  top: 60px !important;
+  right: 20px !important;
+  z-index: 999999 !important;
+  padding: 12px 16px !important;
+  border-radius: 6px !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease !important;
+  max-width: 300px !important;
+  word-wrap: break-word !important;
+  pointer-events: auto !important;
+}
+
+.token-manager-notification.success {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.token-manager-notification.error {
+  background: #fecaca !important;
+  color: #991b1b !important;
+  border: 1px solid #fca5a5 !important;
+}
+
+.token-manager-notification.warning {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid #fde68a !important;
+}
+
+.token-manager-notification.info {
+  background: #dbeafe !important;
+  color: #1e40af !important;
+  border: 1px solid #93c5fd !important;
+}
+
+/* Enhanced token input styling when injected */
+input[data-token-manager-injected="true"] {
+  border: 2px solid #10b981 !important;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1) !important;
+  background-color: #f0fdfa !important;
+}
+
+/* Token injection indicator */
+input[data-token-manager-injected="true"]::after {
+  content: "🎫 " attr(data-token-role) !important;
+  position: absolute !important;
+  top: -20px !important;
+  left: 0 !important;
+  font-size: 10px !important;
+  color: #10b981 !important;
+  background: white !important;
+  padding: 2px 6px !important;
+  border-radius: 3px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Environment Switcher Banner styles removed - using FAB instead */
+
+/* Quick Environment Switcher */
+.env-quick-switcher-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 999999 !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(5px) !important;
+  animation: env-fade-in 0.3s ease !important;
+}
+
+.env-quick-switcher {
+  background: white !important;
+  border-radius: 12px !important;
+  padding: 24px !important;
+  max-width: 400px !important;
+  width: 90% !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+  animation: env-scale-in 0.3s ease !important;
+}
+
+.env-quick-switcher h3 {
+  margin: 0 0 16px 0 !important;
+  font-size: 18px !important;
+  color: #374151 !important;
+  text-align: center !important;
+}
+
+.env-options {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin-bottom: 16px !important;
+}
+
+.env-option {
+  background: #f8f9fa !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-align: left !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+.env-option:hover {
+  border-color: #667eea !important;
+  background: #f0f9ff !important;
+}
+
+.env-option.active {
+  border-color: #667eea !important;
+  background: #eff6ff !important;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1) !important;
+}
+
+.env-option-name {
+  font-weight: 600 !important;
+  color: #374151 !important;
+  font-size: 14px !important;
+}
+
+.env-option-url {
+  font-size: 12px !important;
+  color: #6b7280 !important;
+  font-family: monospace !important;
+}
+
+.env-quick-close {
+  width: 100% !important;
+  background: #6b7280 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 10px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  transition: background 0.2s !important;
+}
+
+.env-quick-close:hover {
+  background: #4b5563 !important;
+}
+
+/* Environment Switcher Notifications */
+.env-switcher-notification {
+  position: fixed !important;
+  top: 70px !important;
+  right: 20px !important;
+  z-index: 999998 !important;
+  padding: 12px 16px !important;
+  border-radius: 6px !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease !important;
+  max-width: 300px !important;
+  word-wrap: break-word !important;
+  pointer-events: auto !important;
+}
+
+.env-switcher-notification.success {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.env-switcher-notification.error {
+  background: #fecaca !important;
+  color: #991b1b !important;
+  border: 1px solid #fca5a5 !important;
+}
+
+.env-switcher-notification.warning {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid #fde68a !important;
+}
+
+.env-switcher-notification.info {
+  background: #dbeafe !important;
+  color: #1e40af !important;
+  border: 1px solid #93c5fd !important;
+}
+
+/* Animations for environment switcher */
+@keyframes env-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes env-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Body margin adjustment removed - no banner anymore */
+
+/* Copy Request Buttons */
+.copy-curl-btn {
+  background: #667eea !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 6px 10px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  margin-left: 8px !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+}
+
+.copy-curl-btn:hover {
+  background: #5a67d8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3) !important;
+}
+
+.copy-curl-btn:active {
+  transform: translateY(0) !important;
+}
+
+.copy-curl-btn:disabled {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+.copy-curl-btn svg {
+  flex-shrink: 0 !important;
+}
+
+/* Copy button loading animation */
+.copy-curl-loading {
+  width: 12px !important;
+  height: 12px !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-top: 2px solid white !important;
+  border-radius: 50% !important;
+  animation: copy-spin 1s linear infinite !important;
+}
+
+@keyframes copy-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Copy request notifications */
+.copy-request-notification {
+  position: fixed !important;
+  top: 100px !important;
+  right: 20px !important;
+  z-index: 999997 !important;
+  padding: 12px 16px !important;
+  border-radius: 6px !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease !important;
+  max-width: 300px !important;
+  word-wrap: break-word !important;
+  pointer-events: auto !important;
+}
+
+.copy-request-notification.success {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.copy-request-notification.error {
+  background: #fecaca !important;
+  color: #991b1b !important;
+  border: 1px solid #fca5a5 !important;
+}
+
+.copy-request-notification.warning {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid #fde68a !important;
+}
+
+.copy-request-notification.info {
+  background: #dbeafe !important;
+  color: #1e40af !important;
+  border: 1px solid #93c5fd !important;
+}
+
+/* Integration with existing Swagger UI */
+.swagger-ui .opblock-summary {
+  position: relative !important;
+}
+
+.swagger-ui .opblock-summary .copy-curl-btn {
+  margin-left: auto !important;
+  margin-right: 12px !important;
+}
+
+/* Responsive adjustments for copy buttons */
+@media (max-width: 768px) {
+  .copy-curl-btn {
+    font-size: 10px !important;
+    padding: 4px 8px !important;
+    gap: 2px !important;
+  }
+  
+  .copy-curl-btn svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+  
+  .copy-request-notification {
+    top: 80px !important;
+    right: 10px !important;
+    left: 10px !important;
+    max-width: none !important;
+  }
+}
+
+/* Dark mode support for copy buttons */
+@media (prefers-color-scheme: dark) {
+  .copy-curl-btn {
+    background: #4f46e5 !important;
+  }
+  
+  .copy-curl-btn:hover {
+    background: #4338ca !important;
+  }
+}
+
+/* UI Enhancer Notifications */
+.ui-enhancer-notification {
+  position: fixed !important;
+  top: 120px !important;
+  right: 20px !important;
+  z-index: 999996 !important;
+  padding: 12px 16px !important;
+  border-radius: 6px !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease !important;
+  max-width: 300px !important;
+  word-wrap: break-word !important;
+  pointer-events: auto !important;
+}
+
+.ui-enhancer-notification.success {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.ui-enhancer-notification.error {
+  background: #fecaca !important;
+  color: #991b1b !important;
+  border: 1px solid #fca5a5 !important;
+}
+
+.ui-enhancer-notification.warning {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid #fde68a !important;
+}
+
+.ui-enhancer-notification.info {
+  background: #dbeafe !important;
+  color: #1e40af !important;
+  border: 1px solid #93c5fd !important;
+}
+
+/* UI Enhancer Collapsed Operations */
+.swagger-helper-collapsed .opblock-body {
+  display: none !important;
+}
+
+.swagger-helper-collapsed .opblock-summary {
+  border-radius: 4px !important;
+}
+
+.swagger-helper-collapsed .opblock-summary::after {
+  content: " (collapsed)" !important;
+  font-size: 11px !important;
+  opacity: 0.7 !important;
+  font-style: italic !important;
+}
+
+/* UI Enhancer Operation Hover Effects */
+.swagger-ui .opblock {
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.swagger-ui .opblock:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Dark Mode Body Class Support */
+body.swagger-helper-dark-mode {
+  background: #1a1a1a !important;
+  color: #e4e4e7 !important;
+}
+
+/* Responsive adjustments for UI enhancer */
+@media (max-width: 768px) {
+  .ui-enhancer-notification {
+    top: 100px !important;
+    right: 10px !important;
+    left: 10px !important;
+    max-width: none !important;
+  }
+}
+
+/* Hide our elements when printing */
+@media print {
+  .swagger-helper-notification,
+  .swagger-helper-toolbar,
+  .swagger-helper-env-indicator,
+  .token-manager-indicator,
+  .token-manager-notification,
+  .env-quick-switcher-overlay,
+  .env-switcher-notification,
+  .copy-curl-btn,
+  .copy-request-notification,
+  .ui-enhancer-notification {
+    display: none !important;
+  }
+  
+  /* No banner margin reset needed */
+}

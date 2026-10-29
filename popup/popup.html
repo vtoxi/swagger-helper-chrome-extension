@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All-in-One Swagger Helper</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Enhanced Header -->
+  <header class="header">
+    <!-- Title Row -->
+    <div class="header-title">
+      <h1>🚀 Swagger Helper</h1>
+      <span class="version">v1.0.2</span>
+    </div>
+    
+    <!-- Status and Environment Row -->
+    <div class="header-info-row">
+      <div class="current-env-info">
+        <div class="env-label">Environment:</div>
+        <div class="env-value" id="headerEnvName">Not selected</div>
+        <div class="env-url" id="headerEnvUrl">-</div>
+      </div>
+      <div class="status-indicator" id="statusIndicator">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-text" id="statusText">Ready</span>
+      </div>
+    </div>
+    
+    <!-- Token Info Row -->
+    <div class="header-token-row" id="headerTokenRow" style="display: none;">
+      <div class="token-info-section">
+        <div class="token-label">Active Token:</div>
+        <div class="token-details">
+          <div class="token-name" id="headerTokenName">None</div>
+          <div class="token-validity" id="headerTokenValidity">
+            <span class="validity-indicator" id="headerValidityIndicator">⚪</span>
+            <span class="validity-text" id="headerValidityText">Not available</span>
+          </div>
+        </div>
+      </div>
+      <div class="token-actions">
+        <button class="token-copy-btn" id="headerCopyTokenBtn" title="Copy token to clipboard">
+          📋
+        </button>
+        <button class="token-details-btn" id="headerTokenDetailsBtn" title="View token details">
+          🔍
+        </button>
+      </div>
+    </div>
+    
+    <!-- Expiry Timer Row (shown only when token is active) -->
+    <div class="header-expiry-row" id="headerExpiryRow" style="display: none;">
+      <div class="expiry-info">
+        <span class="expiry-label">Expires:</span>
+        <span class="expiry-time" id="headerExpiryTime">-</span>
+        <span class="expiry-countdown" id="headerExpiryCountdown">-</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Environment Switcher Section -->
+  <section class="section">
+    <h2>🌍 Environment</h2>
+    <div class="env-switcher">
+      <select id="environmentSelect" class="select-input">
+        <option value="local">Local</option>
+        <option value="dev">Development</option>
+        <option value="staging">Staging</option>
+        <option value="prod">Production</option>
+      </select>
+      <button id="addEnvBtn" class="btn btn-secondary btn-sm">+</button>
+    </div>
+    <div class="env-url">
+      <input type="url" id="baseUrlInput" placeholder="https://api.example.com" class="text-input">
+      <button id="saveEnvBtn" class="btn btn-primary btn-sm">Save</button>
+    </div>
+  </section>
+
+  <!-- API Format Configuration Section -->
+  <section class="section">
+    <h2>🔧 API Format</h2>
+    
+    <!-- API Format Presets -->
+    <div class="api-format-presets">
+      <label for="apiFormatPresetSelect" class="form-label">Common API Formats:</label>
+      <select id="apiFormatPresetSelect" class="select-input">
+        <option value="current-api">Current API (Email + Request wrapper)</option>
+        <option value="simple-auth">Simple Auth (username/password)</option>
+        <option value="oauth-password">OAuth Password Grant</option>
+        <option value="email-auth">Email Auth (email/password)</option>
+        <option value="loginname-auth">LoginName Auth (loginname/password)</option>
+        <option value="custom">Custom Format (Expert Mode)</option>
+      </select>
+    </div>
+
+    <!-- Custom API Format Configuration -->
+    <div class="api-format-custom" id="apiFormatCustom">
+      <h4>📤 Request Format</h4>
+      
+      <div class="form-group">
+        <label for="usernameFieldSelect" class="form-label">Username Field:</label>
+        <select id="usernameFieldSelect" class="select-input">
+          <option value="email">email</option>
+          <option value="username">username</option>
+          <option value="loginname">loginname</option>
+          <option value="user">user</option>
+          <option value="login">login</option>
+          <option value="custom">Custom...</option>
+        </select>
+        <input type="text" id="usernameFieldCustom" placeholder="Custom field name" class="text-input" style="display: none; margin-top: 8px;">
+      </div>
+      
+      <div class="form-group">
+        <label for="passwordFieldSelect" class="form-label">Password Field:</label>
+        <select id="passwordFieldSelect" class="select-input">
+          <option value="password">password</option>
+          <option value="pass">pass</option>
+          <option value="pwd">pwd</option>
+          <option value="passwd">passwd</option>
+          <option value="custom">Custom...</option>
+        </select>
+        <input type="text" id="passwordFieldCustom" placeholder="Custom field name" class="text-input" style="display: none; margin-top: 8px;">
+      </div>
+      
+      <div class="form-group">
+        <label for="requestWrapperSelect" class="form-label">Request Wrapper:</label>
+        <select id="requestWrapperSelect" class="select-input">
+          <option value="">No wrapper (flat object)</option>
+          <option value="request">request</option>
+          <option value="data">data</option>
+          <option value="user">user</option>
+          <option value="credentials">credentials</option>
+          <option value="custom">Custom...</option>
+        </select>
+        <input type="text" id="requestWrapperCustom" placeholder="Custom wrapper name" class="text-input" style="display: none; margin-top: 8px;">
+      </div>
+      
+      <div class="form-group">
+        <label for="additionalFieldsInput" class="form-label">Additional Fields (JSON):</label>
+        <textarea id="additionalFieldsInput" placeholder='{"grant_type": "password", "client_id": "app"}' class="text-input" rows="3"></textarea>
+        <small class="field-help">Optional: Add extra fields as JSON object</small>
+      </div>
+
+      <h4>📥 Response Format</h4>
+      
+      <div class="form-group">
+        <label for="tokenPathInput" class="form-label">Token Path:</label>
+        <input type="text" id="tokenPathInput" placeholder="Data.Token" class="text-input">
+        <small class="field-help">Dot notation path to token in response (e.g., "data.accessToken", "result.token")</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="errorPathInput" class="form-label">Error Message Path:</label>
+        <input type="text" id="errorPathInput" placeholder="Message" class="text-input">
+        <small class="field-help">Path to error message (e.g., "error.message", "Message")</small>
+      </div>
+    </div>
+
+    <!-- Format Preview -->
+    <div class="api-format-preview">
+      <div class="preview-label">Request Preview:</div>
+      <div class="preview-content">
+        <code id="apiFormatPreview">Loading...</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Auto Login Section -->
+  <section class="section">
+    <h2>🔐 Auto Login</h2>
+    <div class="login-form">
+      <div class="form-group">
+        <label for="loginEndpointInput" class="form-label">Login Endpoint:</label>
+        <input type="text" id="loginEndpointInput" placeholder="/api/auth/login" class="text-input">
+        <small class="field-help">API login endpoint path (without base URL). Example: /api/auth/login, /auth/signin, /login</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="tokenPathQuickInput" class="form-label">Token Path in Response:</label>
+        <input type="text" id="tokenPathQuickInput" placeholder="Data.Token" class="text-input">
+        <small class="field-help">Where to find the token in response. Examples: "token", "access_token", "Data.Token", "result.accessToken"</small>
+      </div>
+      
+      <input type="email" id="usernameInput" placeholder="Email Address" class="text-input">
+      <input type="password" id="passwordInput" placeholder="Password" class="text-input">
+      <div class="form-actions">
+        <button id="loginBtn" class="btn btn-primary">Login & Store Token</button>
+        <button id="testLoginBtn" class="btn btn-secondary">Test</button>
+      </div>
+      <div class="login-help">
+        <small>💡 Enter your API login credentials. Fields will be formatted according to the API format configuration above.</small>
+      </div>
+    </div>
+    <div class="login-status" id="loginStatus">
+      <span class="status-label">Status:</span>
+      <span class="status-value" id="loginStatusText">Not authenticated</span>
+    </div>
+    
+    <!-- Saved Credentials Section -->
+    <div class="saved-credentials" id="savedCredentialsContainer" style="display: none;">
+      <h4>📋 Saved Credentials</h4>
+      <div class="credentials-list" id="credentialsList">
+        <!-- Credentials will be dynamically added here -->
+      </div>
+      <div class="credentials-actions">
+        <button id="clearCredentialsBtn" class="btn btn-secondary btn-small">🗑️ Clear All</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Token Manager Section -->
+  <section class="section">
+    <h2>🎫 Token Manager</h2>
+    
+    <!-- Quick Token Switcher -->
+    <div class="quick-token-switcher">
+      <label for="activeTokenSelect" class="token-switcher-label">Active Token:</label>
+      <div class="token-switcher-controls">
+        <select id="activeTokenSelect" class="select-input">
+          <option value="">Select a token...</option>
+        </select>
+        <button id="refreshTokenBtn" class="btn btn-secondary btn-sm" title="Refresh active token">
+          🔄
+        </button>
+      </div>
+    </div>
+
+    <!-- Add/Edit Token Form (Initially Hidden) -->
+    <div class="token-form" id="tokenForm" style="display: none;">
+      <h3 id="tokenFormTitle">Add New Token</h3>
+      <div class="form-group">
+        <input type="text" id="tokenRoleInput" placeholder="Role/Name (e.g., Admin, User, ReadOnly)" class="text-input">
+      </div>
+      <div class="form-group">
+        <textarea id="tokenValueInput" placeholder="Bearer token or JWT..." class="text-area" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <input type="text" id="tokenDescInput" placeholder="Description (optional)" class="text-input">
+      </div>
+      <div class="form-actions">
+        <button id="saveTokenBtn" class="btn btn-primary btn-sm">Save Token</button>
+        <button id="cancelTokenBtn" class="btn btn-secondary btn-sm">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Token List -->
+    <div class="token-list" id="tokenList">
+      <!-- Tokens will be dynamically populated here -->
+      <div class="empty-state">No tokens stored</div>
+    </div>
+    
+    <!-- Token Actions -->
+    <div class="token-actions">
+      <button id="addTokenBtn" class="btn btn-primary btn-sm">➕ Add Token</button>
+      <button id="clearTokensBtn" class="btn btn-danger btn-sm">🗑️ Clear All</button>
+    </div>
+  </section>
+
+
+
+  <!-- Token Format Configuration Section -->
+  <section class="section">
+    <h2>🔧 Token Format</h2>
+    
+    <!-- Preset Selection -->
+    <div class="token-format-presets">
+      <label for="tokenPresetSelect" class="form-label">Common Formats:</label>
+      <select id="tokenPresetSelect" class="select-input">
+        <option value="plain">Plain Token (No Prefix)</option>
+        <option value="bearer">Bearer Token (OAuth 2.0)</option>
+        <option value="token">Token (Simple)</option>
+        <option value="apikey">API Key</option>
+        <option value="x-api-key">X-API-Key Header</option>
+        <option value="custom">Custom Format</option>
+      </select>
+    </div>
+
+    <!-- Custom Format Configuration -->
+    <div class="token-format-custom" id="tokenFormatCustom">
+      <div class="form-group">
+        <label for="tokenHeaderInput" class="form-label">Header Name:</label>
+        <input type="text" id="tokenHeaderInput" placeholder="Authorization" class="text-input">
+      </div>
+      
+      <div class="form-group">
+        <label for="tokenFormatSelect" class="form-label">Format:</label>
+        <select id="tokenFormatSelect" class="select-input">
+          <option value="prefix">Prefix + Token (e.g., "Bearer abc123")</option>
+          <option value="value">Token Only (e.g., "abc123")</option>
+        </select>
+      </div>
+      
+      <div class="form-group" id="tokenPrefixGroup">
+        <label for="tokenPrefixInput" class="form-label">Prefix:</label>
+        <input type="text" id="tokenPrefixInput" placeholder="Bearer" class="text-input">
+      </div>
+    </div>
+
+    <!-- Format Preview -->
+    <div class="token-format-preview">
+      <div class="preview-label">Preview:</div>
+      <div class="preview-content">
+        <code id="tokenFormatPreview">Authorization: Bearer &lt;your-token&gt;</code>
+      </div>
+    </div>
+
+    <!-- Save Button -->
+    <div class="token-format-actions">
+      <button id="saveTokenFormatBtn" class="btn btn-primary">💾 Save Token Format</button>
+      <button id="resetTokenFormatBtn" class="btn btn-secondary">🔄 Reset to Default</button>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section">
+    <h2>⚡ Features</h2>
+    <div class="feature-toggles">
+      <label class="toggle-item">
+        <input type="checkbox" id="darkModeToggle" class="toggle-checkbox">
+        <span class="toggle-label">Dark Mode</span>
+      </label>
+      <label class="toggle-item">
+        <input type="checkbox" id="autoCollapseToggle" class="toggle-checkbox">
+        <span class="toggle-label">Auto Collapse Sections</span>
+      </label>
+      <label class="toggle-item">
+        <input type="checkbox" id="copyButtonsToggle" class="toggle-checkbox">
+        <span class="toggle-label">Copy as cURL Buttons</span>
+      </label>
+
+    </div>
+  </section>
+
+  <!-- Actions Section -->
+  <section class="section">
+    <h2>🎯 Quick Actions</h2>
+    <div class="quick-actions">
+      <button id="refreshPageBtn" class="btn btn-secondary">
+        🔄 Refresh Swagger UI
+      </button>
+      <button id="exportConfigBtn" class="btn btn-secondary">
+        📤 Export Config
+      </button>
+      <button id="importConfigBtn" class="btn btn-secondary">
+        📥 Import Config
+      </button>
+      <button id="exportPostmanBtn" class="btn btn-secondary">
+        📋 Export Postman
+      </button>
+    </div>
+  </section>
+
+  <!-- Status Messages -->
+  <div id="messageContainer" class="message-container" style="display: none;">
+    <div class="message" id="messageContent"></div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <span>Processing...</span>
+  </div>
+
+  <!-- Request Replay Results Section -->
+  <section class="section collapsible-section" id="replayResultsSection" style="display: none;">
+    <div class="section-header clickable" onclick="toggleSection('replayResults')">
+      <h2>🔄 Request Replay Results</h2>
+      <span class="toggle-indicator" id="replayResultsToggle">▼</span>
+    </div>
+    <div class="section-content" id="replayResultsContent">
+      <!-- Request Info -->
+      <div class="replay-section">
+        <h4>📤 Original Request</h4>
+        <div class="request-info">
+          <div class="info-row">
+            <span class="info-label">Method:</span>
+            <span class="info-value" id="replayOriginalMethod">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">URL:</span>
+            <span class="info-value" id="replayOriginalUrl">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Timestamp:</span>
+            <span class="info-value" id="replayOriginalTime">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Response Info -->
+      <div class="replay-section">
+        <h4>📥 Response Results</h4>
+        <div class="response-info">
+          <div class="info-row">
+            <span class="info-label">Status:</span>
+            <span class="info-value" id="replayResponseStatus">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Duration:</span>
+            <span class="info-value" id="replayResponseDuration">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Size:</span>
+            <span class="info-value" id="replayResponseSize">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Response Headers -->
+      <div class="replay-section">
+        <h4>📋 Response Headers</h4>
+        <div class="code-block" id="replayResponseHeaders">
+          <pre><code>Loading...</code></pre>
+        </div>
+      </div>
+
+      <!-- Response Body -->
+      <div class="replay-section">
+        <h4>💾 Response Body</h4>
+        <div class="response-body-controls">
+          <div class="format-buttons">
+            <button id="formatJsonBtn" class="btn btn-secondary btn-sm">Format JSON</button>
+            <button id="copyResponseBtn" class="btn btn-secondary btn-sm">📋 Copy</button>
+          </div>
+        </div>
+        <div class="code-block" id="replayResponseBody">
+          <pre><code>Loading...</code></pre>
+        </div>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="section-actions">
+        <button id="replayAgainBtn" class="btn btn-primary">🔄 Replay Again</button>
+        <button id="copyAsCurlBtn" class="btn btn-secondary">📋 Copy as cURL</button>
+        <button id="hideReplayResultsBtn" class="btn btn-secondary">Hide Results</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Token Details Section -->
+  <section class="section collapsible-section" id="tokenDetailsSection" style="display: none;">
+    <div class="section-header clickable" onclick="toggleSection('tokenDetails')">
+      <h2>🔍 Token Details</h2>
+      <span class="toggle-indicator" id="tokenDetailsToggle">▼</span>
+    </div>
+    <div class="section-content" id="tokenDetailsContent">
+      <!-- Token Info -->
+      <div class="token-decoder-section">
+        <h4>📋 Token Information</h4>
+        <div class="token-decoder-info">
+          <div class="info-row">
+            <span class="info-label">Role:</span>
+            <span class="info-value" id="decodedTokenRole">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Environment:</span>
+            <span class="info-value" id="decodedTokenEnv">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Created:</span>
+            <span class="info-value" id="decodedTokenCreated">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Type:</span>
+            <span class="info-value" id="decodedTokenType">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- JWT Header -->
+      <div class="token-decoder-section">
+        <h4>🏷️ JWT Header</h4>
+        <div class="code-block">
+          <pre id="decodedTokenHeader">{}</pre>
+        </div>
+      </div>
+
+      <!-- JWT Payload -->
+      <div class="token-decoder-section">
+        <h4>📦 JWT Payload</h4>
+        <div class="code-block">
+          <pre id="decodedTokenPayload">{}</pre>
+        </div>
+      </div>
+
+      <!-- Token Validity -->
+      <div class="token-decoder-section">
+        <h4>⏰ Token Validity</h4>
+        <div class="token-validity-info">
+          <div class="info-row">
+            <span class="info-label">Issued At:</span>
+            <span class="info-value" id="decodedTokenIat">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Expires At:</span>
+            <span class="info-value" id="decodedTokenExp">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Status:</span>
+            <span class="info-value" id="decodedTokenStatus">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Time Remaining:</span>
+            <span class="info-value" id="decodedTokenTimeRemaining">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Raw Token -->
+      <div class="token-decoder-section">
+        <h4>🔤 Raw Token</h4>
+        <div class="token-raw-container">
+          <textarea id="decodedTokenRaw" class="token-raw-textarea" readonly></textarea>
+          <button id="copyRawTokenBtn" class="btn btn-sm btn-secondary">📋 Copy</button>
+        </div>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="section-actions">
+        <button id="refreshTokenDecoderBtn" class="btn btn-primary">🔄 Refresh</button>
+        <button id="hideTokenDetailsBtn" class="btn btn-secondary">Hide Details</button>
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
