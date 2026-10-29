@@ -1,0 +1,56 @@
+<!--
+Swagger Helper Extension Icon
+A professional icon combining API/Swagger symbols with automation elements
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="url(#bgGradient)" stroke="#4c51bf" stroke-width="2"/>
+  
+  <!-- API brackets -->
+  <g fill="url(#iconGradient)" stroke="url(#iconGradient)" stroke-width="2">
+    <!-- Left bracket -->
+    <path d="M 35 40 L 28 40 L 28 88 L 35 88" stroke-linecap="round" fill="none"/>
+    
+    <!-- Right bracket -->
+    <path d="M 93 40 L 100 40 L 100 88 L 93 88" stroke-linecap="round" fill="none"/>
+  </g>
+  
+  <!-- Swagger/API symbol in center -->
+  <g fill="url(#iconGradient)">
+    <!-- Central diamond/API node -->
+    <circle cx="64" cy="64" r="8" fill="url(#iconGradient)"/>
+    
+    <!-- Connection lines representing endpoints -->
+    <line x1="64" y1="45" x2="64" y2="56" stroke="url(#iconGradient)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="64" y1="72" x2="64" y2="83" stroke="url(#iconGradient)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="45" y1="64" x2="56" y2="64" stroke="url(#iconGradient)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="72" y1="64" x2="83" y2="64" stroke="url(#iconGradient)" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Small endpoint circles -->
+    <circle cx="64" cy="45" r="3" fill="url(#iconGradient)"/>
+    <circle cx="64" cy="83" r="3" fill="url(#iconGradient)"/>
+    <circle cx="45" cy="64" r="3" fill="url(#iconGradient)"/>
+    <circle cx="83" cy="64" r="3" fill="url(#iconGradient)"/>
+  </g>
+  
+  <!-- Automation/helper indicator (small rocket/arrow) -->
+  <g fill="#ffd700" stroke="#ffed4e" stroke-width="1">
+    <path d="M 85 30 L 90 25 L 95 30 L 90 35 Z" fill="#ffd700"/>
+    <circle cx="90" cy="30" r="2" fill="#fff"/>
+  </g>
+  
+  <!-- Small shine effect -->
+  <ellipse cx="50" cy="45" rx="8" ry="12" fill="rgba(255,255,255,0.2)" transform="rotate(-30 50 45)"/>
+</svg>
